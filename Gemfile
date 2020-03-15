@@ -36,6 +36,10 @@ group :development, :test do
   gem 'rspec-rails', '~> 4.0.0.rc1'
 end
 
+group :test do
+  gem 'rails-controller-testing'
+end
+
 group :development do
   gem 'annotate'
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
