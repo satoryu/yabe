@@ -18,6 +18,19 @@
           "-p",
           "3000"
       ]
+    },
+    {
+      "name": "Debug RSpec",
+      "type": "Ruby",
+      "request": "launch",
+      "cwd": "${workspaceRoot}",
+      "useBundler": true,
+      "pathToBundler": "${workspaceRoot}/bin/bundle",
+      "pathToRDebugIDE": "${workspaceRoot}/bin/rdebug-ide",
+      "program": "${workspaceRoot}/bin/rspec",
+      "args": [
+        "${relativeFile}:${lineNumber}"
+      ]
   }
   ]
 }
