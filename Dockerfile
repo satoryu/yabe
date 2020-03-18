@@ -19,6 +19,8 @@ RUN bundle install && \
 
 COPY . /app/
 
+RUN rails assets:precompile
+
 ENTRYPOINT [ "./entrypoint.sh" ]
 EXPOSE 3000
 
