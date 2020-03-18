@@ -24,6 +24,7 @@ services:
       DB_PASSWORD: postgres
       DB_NAME: yabe_development
       DB_HOST: db
+      RAILS_LOG_TO_STDOUT: enabled
     ports:
       - 3000:3000
     volumes:
