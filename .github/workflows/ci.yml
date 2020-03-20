@@ -11,6 +11,14 @@ jobs:
   build:
     name: RSpec
     runs-on: ubuntu-latest
+    services:
+      db:
+        image: postgres:12.2-alpine
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+      ports:
+        - 5432:5432
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-ruby@v1
@@ -21,10 +29,13 @@ jobs:
           path: vendor/bundle
           key: gems-${{ hashFiles('**/Gemfile.lock') }}
           restore-keys: gems-
+      - name: Install apt package required for pg
+        run: sudo apt-get -y install libpq-dev
       - run: |
             gem install bundler
             bundle config path vendoer/bundle
             bundle install
+            bundle exec rails db:prepare
             bundle exec rake
   deploy:
     name: Deploy to Heroku
