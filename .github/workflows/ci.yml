@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  build:
+    name: RSpec
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.7
+      - uses: actions/cache@v1
+        with:
+          path: vendor/bundle
+          key: gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: gems-
+      - run: |
+            gem install bundler
+            bundle config path vendoer/bundle
+            bundle install
+            bundle exec rake
+  deploy:
+    name: Deploy to Heroku
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.0.0
+        with:
+          heroku_app_name: "yabe-demo"
+          heroku_email: satoryu.1981@gmail.com
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          usedocker: true
