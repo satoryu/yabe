@@ -28,6 +28,7 @@ jobs:
             bundle exec rake
   deploy:
     name: Deploy to Heroku
+    needs: build
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
