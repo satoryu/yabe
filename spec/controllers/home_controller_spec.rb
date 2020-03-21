@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe HomeController, type: :controller do
-
   describe 'GET #index' do
     before do
       get :index
@@ -23,5 +24,4 @@ RSpec.describe HomeController, type: :controller do
       it { is_expected.to render_template :index }
     end
   end
-
 end
