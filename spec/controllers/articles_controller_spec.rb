@@ -20,10 +20,33 @@ RSpec.describe ArticlesController, type: :controller do
     end
   end
 
-  describe "GET #create" do
-    it "returns http success" do
-      get :create
-      expect(response).to have_http_status(:success)
+  describe "POST #create" do
+    context 'Given valid parameters' do
+      it 'creates new article' do
+        post :create, params: { article: attributes_for(:article) }
+
+        article = assigns(:article)
+        expect(article).to be_a(Article)
+        expect(article).to be_persisted
+        expect(response).to redirect_to article_path(article)
+      end
+    end
+    context 'Givne invalid parameters' do
+      context 'empty parameter' do
+        it 'renders the form' do
+          pending 'need a policy for how handling ParameterMissing exception'
+          post :create, params: {}
+
+          expect(response).to render_template(:new)
+        end
+      end
+      context 'title is blank' do
+        it 'renders the form' do
+          post :create, params: { article: { title: '', body: 'Hello, Yabe'} }
+
+          expect(response).to render_template(:new)
+        end
+      end
     end
   end
 
