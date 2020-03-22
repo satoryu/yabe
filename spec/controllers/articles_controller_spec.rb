@@ -20,7 +20,7 @@ RSpec.describe ArticlesController, type: :controller do
     end
   end
 
-  describe "POST #create" do
+  describe 'POST #create' do
     context 'Given valid parameters' do
       it 'creates new article' do
         post :create, params: { article: attributes_for(:article) }
@@ -43,6 +43,13 @@ RSpec.describe ArticlesController, type: :controller do
       context 'title is blank' do
         it 'renders the form' do
           post :create, params: { article: { title: '', body: 'Hello, Yabe'} }
+
+          expect(response).to render_template(:new)
+        end
+      end
+      context 'body is empty' do
+        it 'renders the form' do
+          post :create, params: { article: { title: 'Hello', body: '' }}
 
           expect(response).to render_template(:new)
         end
