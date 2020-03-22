@@ -28,4 +28,31 @@ RSpec.describe "PostsArticles", type: :system do
       end
     end
   end
+
+  describe 'editing an article' do
+    let!(:article) { create :article }
+
+    before do
+      visit edit_article_path(article)
+    end
+
+    it 'shows the form' do
+      expect(page).to have_text 'Edit Article'
+      expect(page).to have_field 'Title', with: article.title
+      expect(page).to have_field 'Body', with: article.body
+    end
+
+    context 'Then updating title and body' do
+      before do
+        fill_in 'Title', with: 'Updated'
+        fill_in 'Body', with: 'Hello, Friends'
+        click_button 'Update'
+      end
+
+      it 'shows updated content' do
+        expect(page).to have_text 'Updated'
+        expect(page).to have_text 'Hello, Friends'
+      end
+    end
+  end
 end

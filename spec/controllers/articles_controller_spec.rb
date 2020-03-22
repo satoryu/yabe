@@ -67,6 +67,7 @@ RSpec.describe ArticlesController, type: :controller do
       expect(response).to render_template(:show)
       expect(assigns(:article)).to eq(article)
     end
+
     context 'Given invalid id' do
       it 'returns not found' do
         get :show, params: { id: 'INVALID_ID' }
@@ -76,10 +77,23 @@ RSpec.describe ArticlesController, type: :controller do
     end
   end
 
-  describe "GET #update" do
-    it "returns http success" do
-      get :update
+  describe 'GET #edit' do
+    let(:article) { create :article }
+
+    it 'shows the form for edit' do
+      get :edit, params: { id: article.id }
+
       expect(response).to have_http_status(:success)
+    end
+  end
+
+  describe "PUT #update" do
+    let!(:article) { create :article }
+
+    it "returns http success" do
+      put :update, params: { id: article.id, article: attributes_for(:article) }
+
+      expect(response).to redirect_to article_path(article)
     end
   end
 
