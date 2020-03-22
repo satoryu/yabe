@@ -57,6 +57,25 @@ RSpec.describe ArticlesController, type: :controller do
     end
   end
 
+  describe 'GET #show' do
+    let(:article) { create :article }
+
+    it 'shows article' do
+      get :show, params: { id: article.id }
+
+      expect(response).to have_http_status(:success)
+      expect(response).to render_template(:show)
+      expect(assigns(:article)).to eq(article)
+    end
+    context 'Given invalid id' do
+      it 'returns not found' do
+        get :show, params: { id: 'INVALID_ID' }
+
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+  end
+
   describe "GET #update" do
     it "returns http success" do
       get :update

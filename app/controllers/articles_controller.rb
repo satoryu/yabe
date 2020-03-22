@@ -16,6 +16,12 @@ class ArticlesController < ApplicationController
     end
   end
 
+  def show
+    @article = Article.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    render status: :not_found
+  end
+
   def update
   end
 
