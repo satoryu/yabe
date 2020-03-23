@@ -29,12 +29,15 @@ jobs:
           path: vendor/bundle
           key: gems-${{ hashFiles('**/Gemfile.lock') }}
           restore-keys: gems-
-      - name: Install apt package required for pg
-        run: sudo apt-get -y install libpq-dev
-      - run: |
+      - name: Install required apt packages
+        run: sudo apt-get -y install libpq-dev yarn
+      - name: Install gems
+        run: |
             gem install bundler
             bundle config path vendoer/bundle
             bundle install
+      - name: Run tests
+        run: |
             bundle exec rails db:prepare
             bundle exec rake
   deploy:
