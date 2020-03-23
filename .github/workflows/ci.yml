@@ -36,6 +36,12 @@ jobs:
             gem install bundler
             bundle config path vendoer/bundle
             bundle install
+      - name: Prepare for testing
+        env:
+          RAILS_ENV: test
+        run: |
+            bundle exec rails db:prepare
+            bundle exec rails webpacker:compile
       - name: Run tests
         run: |
             bundle exec rails db:prepare
