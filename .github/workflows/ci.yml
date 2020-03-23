@@ -41,6 +41,7 @@ jobs:
           RAILS_ENV: test
         run: |
             bundle exec rails db:prepare
+            bundle exec rails yarn:install
             bundle exec rails webpacker:compile
       - name: Run tests
         run: |
