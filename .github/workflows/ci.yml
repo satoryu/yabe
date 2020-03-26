@@ -24,11 +24,21 @@ jobs:
       - uses: actions/setup-ruby@v1
         with:
           ruby-version: 2.7
-      - uses: actions/cache@v1
+      - name: Caching installed gems
+        uses: actions/cache@v1
         with:
           path: vendor/bundle
           key: gems-${{ hashFiles('**/Gemfile.lock') }}
           restore-keys: gems-
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - uses: actions/cache@v1
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: yarn-
       - name: Install required apt packages
         run: sudo apt-get -y install libpq-dev yarn
       - name: Install gems
@@ -45,7 +55,6 @@ jobs:
             bundle exec rails webpacker:compile
       - name: Run tests
         run: |
-            bundle exec rails db:prepare
             bundle exec rake
   deploy:
     name: Deploy to Heroku
