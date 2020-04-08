@@ -90,18 +90,20 @@ RSpec.describe ArticlesController, type: :controller do
   describe "PUT #update" do
     let!(:article) { create :article }
 
-    it "returns http success" do
+    it 'returns http success' do
       put :update, params: { id: article.id, article: attributes_for(:article) }
 
       expect(response).to redirect_to article_path(article)
     end
   end
 
-  describe "GET #destroy" do
-    it "returns http success" do
-      get :destroy
-      expect(response).to have_http_status(:success)
+  describe 'DELETE #destroy' do
+    let(:article) { create :article }
+
+    it 'returns http success' do
+      delete :destroy, params: { id: article.id }
+
+      expect(response).to redirect_to articles_path
     end
   end
-
 end
