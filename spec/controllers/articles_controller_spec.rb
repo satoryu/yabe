@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe ArticlesController, type: :controller do
-  describe "GET #index" do
+  describe 'GET #index' do
     it 'returns http success' do
       skip 'Implement after allowing users to post articles'
       get :index
@@ -49,7 +49,7 @@ RSpec.describe ArticlesController, type: :controller do
       end
       context 'body is empty' do
         it 'renders the form' do
-          post :create, params: { article: { title: 'Hello', body: '' }}
+          post :create, params: { article: { title: 'Hello', body: '' } }
 
           expect(response).to render_template(:new)
         end
