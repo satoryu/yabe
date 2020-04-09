@@ -2,11 +2,14 @@ require 'rails_helper'
 
 RSpec.describe ArticlesController, type: :controller do
   describe 'GET #index' do
+    let!(:articles) { create_list(:article, 10) }
+
     it 'returns http success' do
-      skip 'Implement after allowing users to post articles'
       get :index
 
       expect(response).to have_http_status(:success)
+      expect(assigns(:articles).count).to eq(10)
+      expect(assigns(:articles)).to all be_a(Article)
     end
   end
 
@@ -34,10 +37,9 @@ RSpec.describe ArticlesController, type: :controller do
     context 'Givne invalid parameters' do
       context 'empty parameter' do
         it 'renders the form' do
-          pending 'need a policy for how handling ParameterMissing exception'
           post :create, params: {}
 
-          expect(response).to render_template(:new)
+          expect(response).to have_http_status(:bad_request)
         end
       end
       context 'title is blank' do

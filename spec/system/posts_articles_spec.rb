@@ -55,4 +55,19 @@ RSpec.describe "PostsArticles", type: :system do
       end
     end
   end
+
+  describe 'seeing all articles' do
+    let!(:articles) { create_list(:article, 10) }
+
+    before do
+      visit articles_path
+    end
+
+    it 'shows all articles' do
+      articles.each do |article|
+        expect(page).to have_text article.title
+        expect(page).to have_text article.body
+      end
+    end
+  end
 end

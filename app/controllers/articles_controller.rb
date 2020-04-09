@@ -1,5 +1,10 @@
 class ArticlesController < ApplicationController
+  rescue_from ActionController::ParameterMissing do
+    render status: :bad_request
+  end
+
   def index
+    @articles = Article.all
   end
 
   def new
