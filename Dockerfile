@@ -19,9 +19,8 @@ RUN bundle install && \
 
 COPY . /app/
 
-RUN rails assets:precompile
-
 ENTRYPOINT [ "./entrypoint.sh" ]
+
 EXPOSE 3000
 
-CMD ["rails", "server", "-b", "0.0.0.0"]
+CMD ["rails", "server"]
