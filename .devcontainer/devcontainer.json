@@ -49,6 +49,11 @@
 	// Uncomment the next line to run commands after the container is created - for example installing curl.
 	"postCreateCommand": "sh ./scripts/install_devtools.sh",
 
+	"remoteEnv": {
+		"RAILS_ENV": "",
+		"RACK_ENV": ""
+	}
+
 	// Uncomment to connect as a non-root user if you've added one. See https://aka.ms/vscode-remote/containers/non-root.
 	// "remoteUser": "vscode"
 }
