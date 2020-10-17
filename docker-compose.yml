@@ -31,7 +31,6 @@ services:
     volumes:
       - .:/app:cached
     tmpfs:
-      - /app/tmp
       - /tmp
     depends_on:
       - db
