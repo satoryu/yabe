@@ -15,6 +15,7 @@ RUN apk update && \
 RUN bundle install && \
     yarn install && \
     rm -rf /usr/local/bundle/cache/* /usr/local/share/.cache/* /var/cache/* && \
+    mkdir /var/cache/apk && \
     apk del build-packages
 
 COPY . /app/
