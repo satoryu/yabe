@@ -30,7 +30,5 @@ services:
       - 3000:3000
     volumes:
       - .:/app:cached
-    tmpfs:
-      - /tmp
     depends_on:
       - db
