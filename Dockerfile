@@ -8,7 +8,7 @@ COPY package.json .
 COPY yarn.lock .
 
 RUN apk update && \
-    apk add --no-cache yarn tzdata postgresql-dev imagemagick6-dev && \
+    apk add --no-cache bash yarn tzdata postgresql-dev imagemagick6-dev && \
     apk add --virtual build-packages --no-cache libxml2-dev curl-dev make gcc libc-dev g++ && \
     gem install bundler -v 2.1.2
 
