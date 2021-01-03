@@ -6,10 +6,10 @@
 		"docker-compose.yml"
 	],
 	"service": "web",
-	"workspaceFolder": "/app",
 	"settings": {
 		"terminal.integrated.shell.linux": null
 	},
+  "workspaceFolder": "/app",
 	"extensions": [
     "rebornix.ruby",
     "castwide.solargraph",
@@ -23,9 +23,9 @@
     "aki77.haml-lint",
     "ms-vsliveshare.vsliveshare"
   ],
-	"postCreateCommand": "sh ./scripts/install_devtools.sh",
-	"remoteEnv": {
-		"RAILS_ENV": "",
-		"RACK_ENV": ""
-	}
+  "postCreateCommand": "sh ./scripts/install_devtools.sh",
+  "remoteEnv": {
+    "RAILS_ENV": "",
+    "RACK_ENV":""
+  }
 }

@@ -1,21 +1,23 @@
-FROM ruby:2.7.0-alpine3.11
+FROM ruby:2.7.2-buster
 
 WORKDIR /app
 
-COPY Gemfile .
-COPY Gemfile.lock .
-COPY package.json .
-COPY yarn.lock .
-
-RUN apk update && \
-    apk add --no-cache yarn tzdata postgresql-dev imagemagick6-dev && \
-    apk add --virtual build-packages --no-cache libxml2-dev curl-dev make gcc libc-dev g++ && \
+## Install depenency packages
+RUN apt update && \
+    apt install -y build-essential tzdata libxml2-dev curl libpq-dev nodejs && \
     gem install bundler -v 2.1.2
 
-RUN bundle install && \
+## Install Yarn
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
+    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
+    apt update && apt install yarn
+
+COPY Gemfile Gemfile.lock package.json yarn.lock /app/
+
+RUN gem install bundler -v 2.1.2 && \
+    bundle install && \
     yarn install && \
-    rm -rf /usr/local/bundle/cache/* /usr/local/share/.cache/* /var/cache/* && \
-    apk del build-packages
+    rm -rf /usr/local/bundle/cache/* /usr/local/share/.cache/* /var/cache/*
 
 COPY . /app/
 
