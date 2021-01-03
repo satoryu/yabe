@@ -2,12 +2,18 @@
 #
 # Table name: comments
 #
-#  id         :bigint           not null, primary key
-#  body       :text
-#  visible    :boolean
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  article_id :integer          not null
+# @!attribute id
+#   @return []
+# @!attribute body
+#   @return [String]
+# @!attribute visible
+#   @return [Boolean]
+# @!attribute created_at
+#   @return [Time]
+# @!attribute updated_at
+#   @return [Time]
+# @!attribute article_id
+#   @return [Integer]
 #
 # Indexes
 #

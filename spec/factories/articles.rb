@@ -2,11 +2,16 @@
 #
 # Table name: articles
 #
-#  id         :bigint           not null, primary key
-#  body       :text
-#  title      :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+# @!attribute id
+#   @return []
+# @!attribute body
+#   @return [String]
+# @!attribute title
+#   @return [String]
+# @!attribute created_at
+#   @return [Time]
+# @!attribute updated_at
+#   @return [Time]
 #
 
 FactoryBot.define do
